@@ -1,0 +1,1130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dr. Deepan Jayapala — Physician · Researcher · Data Scientist</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#F4F5F2;
+    --bg-panel:#EAEDE8;
+    --bg-panel-2:#FBFCFA;
+    --ink:#15211E;
+    --muted:#5B6560;
+    --accent:#0B6E6E;
+    --accent-dim:#0B6E6E22;
+    --amber:#C97A2B;
+    --line:#CBD2CB;
+    --serif:'Source Serif 4', Georgia, 'Times New Roman', serif;
+    --sans:'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --mono:'JetBrains Mono', 'SFMono-Regular', Consolas, monospace;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:var(--sans);
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit;}
+  ::selection{background:var(--accent); color:#fff;}
+
+  .wrap{max-width:1080px; margin:0 auto; padding:0 32px;}
+
+  /* ---------- NAV ---------- */
+  header.nav{
+    position:sticky; top:0; z-index:50;
+    background:rgba(244,245,242,0.88);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav-inner{
+    max-width:1080px; margin:0 auto; padding:16px 32px;
+    display:flex; align-items:center; justify-content:space-between;
+  }
+  .nav-mark{
+    font-family:var(--mono); font-size:13px; letter-spacing:0.06em;
+    color:var(--accent); font-weight:600;
+  }
+  .nav-links{display:flex; gap:28px; list-style:none;}
+  .nav-links a{
+    font-family:var(--mono); font-size:12px; letter-spacing:0.04em;
+    text-decoration:none; color:var(--muted);
+    text-transform:uppercase;
+    transition:color .15s ease;
+  }
+  .nav-links a:hover{color:var(--accent);}
+  .nav-toggle{display:none;}
+
+  /* ---------- HERO ---------- */
+  .hero{
+    padding:96px 0 64px;
+    border-bottom:1px solid var(--line);
+    position:relative;
+    overflow:hidden;
+  }
+  .hero-eyebrow{
+    font-family:var(--mono); font-size:12px; letter-spacing:0.12em;
+    color:var(--accent); text-transform:uppercase; margin-bottom:20px;
+    display:flex; align-items:center; gap:10px;
+  }
+  .hero-eyebrow::before{
+    content:''; width:24px; height:1px; background:var(--accent);
+  }
+  h1.hero-name{
+    font-family:var(--serif); font-weight:600;
+    font-size:clamp(38px, 6vw, 64px);
+    line-height:1.05;
+    letter-spacing:-0.01em;
+    margin-bottom:18px;
+  }
+  .hero-role{
+    font-family:var(--sans); font-size:clamp(15px,2vw,18px);
+    color:var(--muted); font-weight:500;
+    margin-bottom:28px;
+    max-width:560px;
+  }
+  .hero-role strong{color:var(--ink); font-weight:600;}
+  .hero-desc{
+    max-width:600px; font-size:16px; color:var(--muted); margin-bottom:40px;
+  }
+  .hero-links{display:flex; flex-wrap:wrap; gap:12px; margin-bottom:56px;}
+  .hero-links a{
+    font-family:var(--mono); font-size:12px;
+    border:1px solid var(--line); padding:9px 16px; border-radius:2px;
+    text-decoration:none; color:var(--ink);
+    transition:all .15s ease;
+  }
+  .hero-links a:hover{border-color:var(--accent); color:var(--accent);}
+
+  /* waveform */
+  .waveform-wrap{width:100%; height:100px; position:relative;}
+  svg.waveform{width:100%; height:100%; display:block;}
+  .wf-path{
+    fill:none; stroke:var(--accent); stroke-width:1.6;
+    stroke-linecap:round; stroke-linejoin:round;
+  }
+  .wf-path.dim{stroke:var(--line); stroke-width:1;}
+
+  /* preview strip */
+  .preview-strip{
+    display:grid; grid-template-columns:repeat(4,1fr); gap:14px;
+    margin-top:20px;
+  }
+  .preview-card{
+    display:block; text-decoration:none; color:var(--ink);
+    background:var(--bg-panel-2); border:1px solid var(--line); border-radius:3px;
+    padding:18px 16px; transition:all .18s ease;
+  }
+  .preview-card:hover{
+    border-color:var(--accent); transform:translateY(-3px);
+    box-shadow:0 6px 18px -8px rgba(11,110,110,0.25);
+  }
+  .pc-icon{width:34px; height:34px; color:var(--accent); margin-bottom:10px; display:block;}
+  .pc-title{font-family:var(--serif); font-weight:600; font-size:14.5px; margin-bottom:4px;}
+  .pc-sub{font-size:11.5px; color:var(--muted); line-height:1.45;}
+  .pc-pulse{animation:pcPulse 2.2s ease-in-out infinite;}
+  @keyframes pcPulse{
+    0%,100%{opacity:1; r:2.4;}
+    50%{opacity:0.35; r:1.6;}
+  }
+  .pc-tl-line{animation:pcDraw 2.6s ease-in-out infinite;}
+  @keyframes pcDraw{
+    0%{stroke-dashoffset:26;}
+    45%{stroke-dashoffset:0;}
+    100%{stroke-dashoffset:0;}
+  }
+  .pc-scatter circle{animation:pcDrift 3.4s ease-in-out infinite;}
+  .pc-scatter circle:nth-child(3){animation-delay:.3s;}
+  .pc-scatter circle:nth-child(7){animation-delay:.6s;}
+  @keyframes pcDrift{
+    0%,100%{transform:translateY(0);}
+    50%{transform:translateY(-1.5px);}
+  }
+  @media (max-width:760px){
+    .preview-strip{grid-template-columns:1fr 1fr; gap:10px;}
+  }
+
+  /* ---------- FIG SECTION HEADERS ---------- */
+  .fig-label{
+    font-family:var(--mono); font-size:12px; letter-spacing:0.08em;
+    color:var(--accent); text-transform:uppercase;
+    display:flex; align-items:baseline; gap:10px; margin-bottom:10px;
+  }
+  .fig-label .n{color:var(--muted);}
+  section.fig{
+    padding:72px 0;
+    border-bottom:1px solid var(--line);
+  }
+  .fig-title{
+    font-family:var(--serif); font-weight:600;
+    font-size:clamp(26px,3vw,34px);
+    margin-bottom:14px;
+  }
+  .fig-caption{
+    color:var(--muted); max-width:640px; margin-bottom:44px; font-size:15.5px;
+  }
+
+  /* ---------- PUBLICATIONS ---------- */
+  .pub-highlight{
+    background:var(--bg-panel-2);
+    border:1px solid var(--line);
+    border-left:3px solid var(--accent);
+    padding:22px 24px;
+    margin-bottom:14px;
+    border-radius:2px;
+  }
+  .pub-highlight .pub-meta{
+    display:flex; flex-wrap:wrap; gap:8px; margin-bottom:10px;
+  }
+  .badge{
+    font-family:var(--mono); font-size:11px; letter-spacing:0.03em;
+    padding:3px 9px; border-radius:20px;
+    background:var(--accent-dim); color:var(--accent);
+    white-space:nowrap;
+  }
+  .badge.amber{background:#C97A2B1c; color:var(--amber);}
+  .pub-highlight h3{
+    font-family:var(--serif); font-weight:600; font-size:18px;
+    margin-bottom:6px; line-height:1.35;
+  }
+  .pub-highlight p{color:var(--muted); font-size:14px;}
+  .pub-highlight a.doi{
+    font-family:var(--mono); font-size:12px; color:var(--accent);
+    text-decoration:none; display:inline-block; margin-top:8px;
+  }
+  .pub-highlight a.doi:hover{text-decoration:underline;}
+
+  .pub-list-toggle{
+    font-family:var(--mono); font-size:12px; color:var(--muted);
+    background:none; border:1px dashed var(--line); padding:10px 16px;
+    cursor:pointer; margin-top:20px; border-radius:2px; width:100%;
+    text-align:left;
+  }
+  .pub-list-toggle:hover{border-color:var(--accent); color:var(--accent);}
+  .pub-more{display:none; margin-top:16px;}
+  .pub-more.open{display:block;}
+  .pub-more-item{
+    padding:14px 0; border-top:1px solid var(--line); font-size:13.5px;
+  }
+  .pub-more-item .pm-meta{color:var(--muted); font-family:var(--mono); font-size:11px; margin-top:4px;}
+
+  /* ---------- ML SECTION ---------- */
+  .ml-grid{
+    display:grid; grid-template-columns:1.15fr 0.85fr; gap:36px;
+  }
+  .panel{
+    background:var(--bg-panel-2); border:1px solid var(--line);
+    border-radius:3px; padding:26px;
+  }
+  .panel h3{
+    font-family:var(--serif); font-weight:600; font-size:19px; margin-bottom:8px;
+  }
+  .panel .sub{color:var(--muted); font-size:13.5px; margin-bottom:20px;}
+
+  /* EDA bar chart */
+  .eda-bars{display:flex; flex-direction:column; gap:11px; margin-top:8px;}
+  .eda-bar-row{display:grid; grid-template-columns:150px 1fr 52px; align-items:center; gap:12px;}
+  .eda-feat{font-size:12.5px; color:var(--ink);}
+  .eda-track{height:9px; background:var(--bg-panel); border-radius:20px; overflow:hidden;}
+  .eda-fill{height:100%; background:var(--accent); border-radius:20px;}
+  .eda-fill.dim{background:var(--line);}
+  .eda-val{font-family:var(--mono); font-size:11.5px; color:var(--accent); text-align:right;}
+  .eda-val.dim{color:var(--muted);}
+  .finding-callout{
+    margin-top:22px; padding:16px 18px; background:#C97A2B14; border:1px solid #C97A2B33;
+    border-radius:2px; font-size:13.5px; color:var(--ink); line-height:1.65;
+  }
+  .finding-callout strong{color:var(--amber);}
+
+  /* burnout clustering demo */
+  .burnout-grid{display:grid; grid-template-columns:1fr 1fr; gap:28px; margin-top:20px;}
+  .mini-label{font-family:var(--mono); font-size:11px; letter-spacing:0.04em; color:var(--muted); text-transform:uppercase; margin-bottom:10px;}
+  .elbow-svg{width:100%; height:auto; background:var(--bg-panel); border:1px solid var(--line); border-radius:2px;}
+  .cutoff-table{margin-top:26px; border:1px solid var(--line); border-radius:2px; overflow:hidden;}
+  .cutoff-row{display:grid; grid-template-columns:1.3fr 1fr 1fr; padding:10px 16px; font-size:13px;}
+  .cutoff-row:not(:last-child){border-bottom:1px solid var(--line);}
+  .cutoff-row span:not(:first-child){font-family:var(--mono); color:var(--accent);}
+  .cutoff-head{background:var(--bg-panel); font-family:var(--mono); font-size:11px; text-transform:uppercase; letter-spacing:0.03em; color:var(--muted);}
+  .cutoff-head span:not(:first-child){color:var(--muted);}
+  @media (max-width:760px){ .burnout-grid{grid-template-columns:1fr;} }
+
+  .cluster-stats{
+    display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-top:18px;
+  }
+  .cluster-stats div{
+    text-align:center; padding:10px 4px; border:1px solid var(--line); border-radius:2px;
+  }
+  .cluster-stats .val{font-family:var(--mono); font-size:20px; font-weight:600;}
+  .cluster-stats .lbl{font-size:10.5px; color:var(--muted); margin-top:2px; text-transform:uppercase; letter-spacing:0.04em;}
+
+  .cluster-controls{display:flex; gap:10px; margin-bottom:16px; flex-wrap:wrap;}
+  .cluster-controls button{
+    font-family:var(--mono); font-size:11.5px;
+    background:var(--ink); color:var(--bg-panel-2);
+    border:none; padding:10px 16px; border-radius:2px; cursor:pointer;
+    letter-spacing:0.03em;
+  }
+  .cluster-controls button.secondary{
+    background:transparent; color:var(--ink); border:1px solid var(--line);
+  }
+  .cluster-controls button:hover{opacity:0.85;}
+  canvas#demoCanvas{
+    width:100%; height:240px; display:block;
+    background:var(--bg-panel); border-radius:2px; border:1px solid var(--line);
+  }
+  .cluster-legend{display:flex; gap:16px; margin-top:14px; flex-wrap:wrap;}
+  .cluster-legend span{
+    font-family:var(--mono); font-size:11px; color:var(--muted);
+    display:flex; align-items:center; gap:6px;
+  }
+  .dot{width:9px; height:9px; border-radius:50%; display:inline-block;}
+
+  /* game cards */
+  .game-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:16px;}
+  .game-card{
+    display:block; background:var(--bg-panel-2); border:1px solid var(--line);
+    border-radius:2px; padding:20px; text-decoration:none; color:var(--ink);
+    transition:all .15s ease;
+  }
+  .game-card:hover{border-color:var(--accent); transform:translateY(-2px);}
+  .game-card .g-title{font-family:var(--serif); font-weight:600; font-size:16px; margin-bottom:8px;}
+  .game-card .g-desc{font-size:12.5px; color:var(--muted); line-height:1.55; margin-bottom:14px;}
+  .game-card .g-link{font-family:var(--mono); font-size:11px; color:var(--accent); letter-spacing:0.03em;}
+  @media (max-width:760px){ .game-grid{grid-template-columns:1fr;} }
+  .demo-note{
+    font-size:12px; color:var(--muted); margin-top:16px; border-top:1px dashed var(--line);
+    padding-top:12px; line-height:1.6;
+  }
+
+  /* kaggle card */
+  .kaggle-card{margin-bottom:20px;}
+  .kaggle-card .metric-row{
+    display:flex; gap:10px; margin:16px 0; flex-wrap:wrap;
+  }
+  .metric{
+    flex:1; min-width:90px; border:1px solid var(--line); border-radius:2px;
+    padding:12px 10px; text-align:center; background:var(--bg-panel);
+  }
+  .metric .v{font-family:var(--mono); font-weight:600; font-size:17px; color:var(--accent);}
+  .metric .l{font-size:10px; color:var(--muted); text-transform:uppercase; letter-spacing:0.03em; margin-top:3px;}
+  .stack-tags{display:flex; flex-wrap:wrap; gap:6px; margin-top:14px;}
+  .stack-tags span{
+    font-family:var(--mono); font-size:10.5px; background:var(--bg-panel);
+    border:1px solid var(--line); padding:4px 9px; border-radius:20px; color:var(--muted);
+  }
+  .kaggle-desc{font-size:13.5px; color:var(--muted); margin-top:14px; line-height:1.65;}
+
+  /* ---------- BACKGROUND / TIMELINE ---------- */
+  .timeline{position:relative; padding-left:26px; border-left:1.5px solid var(--line);}
+  .t-item{position:relative; padding-bottom:32px;}
+  .t-item:last-child{padding-bottom:0;}
+  .t-item::before{
+    content:''; position:absolute; left:-31px; top:4px;
+    width:9px; height:9px; border-radius:50%; background:var(--accent);
+    border:2px solid var(--bg);
+  }
+  .t-date{font-family:var(--mono); font-size:11px; color:var(--accent); margin-bottom:4px;}
+  .t-role{font-family:var(--serif); font-weight:600; font-size:17px; margin-bottom:2px;}
+  .t-org{font-size:13.5px; color:var(--muted);}
+
+  .achieve-grid{
+    display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:48px;
+  }
+  .achieve-item{
+    padding:16px 18px; border:1px solid var(--line); border-radius:2px;
+    background:var(--bg-panel-2); border-left:3px solid var(--amber);
+  }
+  .achieve-item .a-title{font-weight:600; font-size:14px; margin-bottom:3px;}
+  .achieve-item .a-sub{font-size:12px; color:var(--muted); font-family:var(--mono);}
+
+  .skills-row{margin-top:48px;}
+  .skills-row h4{font-family:var(--mono); font-size:12px; text-transform:uppercase; letter-spacing:0.06em; color:var(--muted); margin-bottom:14px;}
+  .skill-tags{display:flex; flex-wrap:wrap; gap:8px;}
+  .skill-tags span{
+    font-family:var(--mono); font-size:12px; padding:7px 14px; border-radius:2px;
+    background:var(--bg-panel); border:1px solid var(--line);
+  }
+
+  /* ---------- FOOTER ---------- */
+  footer{padding:64px 0 48px;}
+  footer .f-title{font-family:var(--serif); font-size:26px; font-weight:600; margin-bottom:12px;}
+  footer .f-sub{color:var(--muted); max-width:480px; margin-bottom:28px; font-size:14.5px;}
+  .footer-links{display:flex; flex-wrap:wrap; gap:12px; margin-bottom:40px;}
+  .footer-links a{
+    font-family:var(--mono); font-size:12.5px; text-decoration:none;
+    border:1px solid var(--line); padding:10px 18px; border-radius:2px; color:var(--ink);
+    transition:all .15s ease;
+  }
+  .footer-links a:hover{border-color:var(--accent); color:var(--accent);}
+  .f-bottom{
+    font-family:var(--mono); font-size:11px; color:var(--muted);
+    border-top:1px solid var(--line); padding-top:20px;
+    display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px;
+  }
+
+  @media (max-width:760px){
+    .wrap{padding:0 20px;}
+    .nav-links{display:none;}
+    .ml-grid{grid-template-columns:1fr;}
+    .achieve-grid{grid-template-columns:1fr;}
+    section.fig{padding:52px 0;}
+    .hero{padding:64px 0 44px;}
+  }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="nav-inner">
+    <div class="nav-mark">D. JAYAPALA</div>
+    <ul class="nav-links">
+      <li><a href="#research">Fig.1 Research</a></li>
+      <li><a href="#ml">Fig.2 Modeling</a></li>
+      <li><a href="#games">Fig.3 Games</a></li>
+      <li><a href="#background">Fig.4 Background</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</header>
+
+<section class="hero wrap">
+  <div class="hero-eyebrow">Colombo → Moratuwa, Sri Lanka</div>
+  <h1 class="hero-name">Dr. Deepan Jayapala</h1>
+  <p class="hero-role">
+    <strong>Physician</strong> &nbsp;·&nbsp; <strong>Anatomy &amp; Neuroscience Researcher</strong> &nbsp;·&nbsp; <strong>Applied Data Scientist</strong>
+  </p>
+  <p class="hero-desc">
+    From medicine to academia, and now increasingly into data science, my interests continue to evolve.
+    Between teaching, research, and working with data and technology, I'm constantly learning something new.
+    This page is a space to share some of the work, ideas, and experiences along the way.
+  </p>
+  <div class="hero-links">
+    <a href="mailto:deepanj@uom.lk">Email</a>
+    <a href="https://orcid.org/0000-0003-3960-6029" target="_blank" rel="noopener">ORCID</a>
+    <a href="https://scholar.google.com/citations?user=s505AA8AAAAJ&hl=en&authuser=2" target="_blank" rel="noopener">Google Scholar</a>
+    <a href="https://www.linkedin.com/in/deepanjayapala" target="_blank" rel="noopener">LinkedIn</a>
+  </div>
+  <div class="waveform-wrap">
+    <svg class="waveform" viewBox="0 0 1000 100" preserveAspectRatio="none">
+      <path class="wf-path dim" id="wfDim" d="" />
+      <path class="wf-path" id="wfMain" d="" />
+    </svg>
+  </div>
+
+  <div class="preview-strip">
+    <a class="preview-card" href="#research">
+      <svg class="pc-icon" viewBox="0 0 40 40"><g class="pc-doc"><rect x="9" y="6" width="22" height="28" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.6"/><line x1="13" y1="14" x2="27" y2="14" stroke="currentColor" stroke-width="1.6"/><line x1="13" y1="19" x2="27" y2="19" stroke="currentColor" stroke-width="1.6"/><line x1="13" y1="24" x2="22" y2="24" stroke="currentColor" stroke-width="1.6"/><circle class="pc-pulse" cx="27" cy="27" r="2.4" fill="var(--amber)"/></g></svg>
+      <div class="pc-title">Fig.1 — Research</div>
+      <div class="pc-sub">6 Q1/Q2 publications &amp; GBD collaboration</div>
+    </a>
+    <a class="preview-card" href="#ml">
+      <svg class="pc-icon" viewBox="0 0 40 40"><g class="pc-scatter"><circle cx="11" cy="26" r="2" fill="currentColor"/><circle cx="16" cy="21" r="2" fill="currentColor"/><circle cx="14" cy="14" r="2" fill="var(--amber)"/><circle cx="22" cy="17" r="2" fill="currentColor"/><circle cx="26" cy="11" r="2" fill="currentColor"/><circle cx="29" cy="24" r="2" fill="currentColor"/><circle cx="24" cy="28" r="2" fill="var(--amber)"/><path class="pc-line" d="M11 26 L16 21 L14 14 M22 17 L26 11 M29 24 L24 28" stroke="currentColor" stroke-width="1" fill="none" opacity="0.35"/></g></svg>
+      <div class="pc-title">Fig.2 — Modeling</div>
+      <div class="pc-sub">Original dataset, EDA, ML &amp; live demos</div>
+    </a>
+    <a class="preview-card" href="#games">
+      <svg class="pc-icon" viewBox="0 0 40 40"><g class="pc-game"><rect x="8" y="15" width="24" height="14" rx="4" fill="none" stroke="currentColor" stroke-width="1.6"/><line x1="14" y1="19" x2="14" y2="25" stroke="currentColor" stroke-width="1.6"/><line x1="11" y1="22" x2="17" y2="22" stroke="currentColor" stroke-width="1.6"/><circle class="pc-pulse" cx="26" cy="21" r="1.6" fill="var(--amber)"/><circle cx="26" cy="25" r="1.6" fill="currentColor"/></g></svg>
+      <div class="pc-title">Fig.3 — Games</div>
+      <div class="pc-sub">6 anatomy learning games, built &amp; shipped</div>
+    </a>
+    <a class="preview-card" href="#background">
+      <svg class="pc-icon" viewBox="0 0 40 40"><g class="pc-timeline"><line x1="8" y1="20" x2="32" y2="20" stroke="currentColor" stroke-width="1.4" stroke-dasharray="26" stroke-dashoffset="26" class="pc-tl-line"/><circle cx="8" cy="20" r="2.2" fill="var(--amber)"/><circle cx="18" cy="20" r="2.2" fill="currentColor"/><circle cx="26" cy="20" r="2.2" fill="currentColor"/><circle cx="32" cy="20" r="2.2" fill="currentColor"/></g></svg>
+      <div class="pc-title">Fig.4 — Background</div>
+      <div class="pc-sub">Career timeline, awards &amp; skills</div>
+    </a>
+  </div>
+</section>
+
+<!-- ================= FIG 1: RESEARCH ================= -->
+<section class="fig wrap" id="research">
+  <div class="fig-label"><span class="n">Fig. 1</span> Peer-Reviewed Output</div>
+  <h2 class="fig-title">Research &amp; Publications</h2>
+  <p class="fig-caption">
+    Six Q1/Q2-indexed articles since 2024, spanning psychiatric epidemiology, neuroanatomy education,
+    vascular anatomy, and a collaboration on the Global Burden of Disease study — plus systematic reviews,
+    abstracts, and peer-review work on the side.
+  </p>
+
+  <div class="pub-highlight">
+    <div class="pub-meta">
+      <span class="badge">Q1 · IF 48</span>
+      <span class="badge amber">GBD Collaborator</span>
+    </div>
+    <h3>Global, regional, and national burden of meningitis, its risk factors, and aetiologies, 1990–2023</h3>
+    <p>GBD 2023 Meningitis &amp; Antimicrobial Resistance Collaborators. <em>Lancet Neurology</em>, 25(5), 451–468. 2026.</p>
+    <a class="doi" href="https://doi.org/10.1016/S1474-4422(26)00101-8" target="_blank" rel="noopener">doi.org/10.1016/S1474-4422(26)00101-8 →</a>
+  </div>
+
+  <div class="pub-highlight">
+    <div class="pub-meta">
+      <span class="badge">Q1 · IF 3.8</span>
+      <span class="badge">2nd of 6 authors</span>
+    </div>
+    <h3>Associations of non-employment with common mental disorder subcomponents among working age population</h3>
+    <p>Perera G, Jayapala D, Khondoker M, et al. <em>Int J Soc Psychiatry.</em> 2025 Mar;71(2):404–413. PMID: 39540384.</p>
+    <a class="doi" href="https://doi.org/10.1177/00207640241293351" target="_blank" rel="noopener">doi.org/10.1177/00207640241293351 →</a>
+  </div>
+
+  <div class="pub-highlight">
+    <div class="pub-meta">
+      <span class="badge">Q2 · 1st Author</span>
+    </div>
+    <h3>Anatomic variations in basilar artery termination: a systematic review and meta-analysis with an illustrative case</h3>
+    <p>Jayapala D, Narayan A, Wijayawardhana S, et al. <em>Surgical and Radiologic Anatomy.</em> In press, 2026.</p>
+  </div>
+
+  <div class="pub-highlight">
+    <div class="pub-meta">
+      <span class="badge">Q1 · IF 5.2</span>
+    </div>
+    <h3>A systematic review and meta-analysis of pedagogical trends and impact in neuroanatomy education</h3>
+    <p>Zainuddin MZ, Jayasooriya LB, Jayapala D, et al. <em>Anatomical Sciences Education.</em> 2026.</p>
+    <a class="doi" href="https://doi.org/10.1002/ase.70175" target="_blank" rel="noopener">doi.org/10.1002/ase.70175 →</a>
+  </div>
+
+  <button class="pub-list-toggle" id="pubToggle">+ Show 5 more publications (Q2, systematic review protocols, abstracts &amp; conference work)</button>
+  <div class="pub-more" id="pubMore">
+    <div class="pub-more-item">
+      <div>Mathangasinghe Y, Hernandez-Salazar B, ... Jayapala D, et al. <strong>A Multi-Modal Curriculum with Integrated Gamification Helps Reduce Neurophobia in Medical Students.</strong> <em>Anatomical Sciences.</em> 2026.</div>
+      <div class="pm-meta">Q1 · IF 5.2 · doi.org/10.1002/ase.70182</div>
+    </div>
+    <div class="pub-more-item">
+      <div>Wijayawardhana S, Jayapala D, Gaskin C, et al. <strong>Methods of skeletal age assessment using hand and wrist radiographs in children and their applicability across different ethnicities: systematic review and meta-analysis protocol.</strong> <em>BMC Systematic Reviews</em> (in press).</div>
+      <div class="pm-meta">Q1 · IF 3.9 · Research Square preprint</div>
+    </div>
+    <div class="pub-more-item">
+      <div>Jayapala D, Wijayawardhana S, Fernando M, Mathangasinghe Y. <strong>Fatal Trajectories: Identifying Key Predictors of Mortality after Femoral Fracture.</strong> <em>The Journal of Desk Research Review and Analysis</em>, University of Kelaniya. 2025.</div>
+      <div class="pm-meta">1st of 4 authors · doi.org/10.4038/jdrra.v3i1.73</div>
+    </div>
+    <div class="pub-more-item">
+      <div>Sampath SB, Jayapala D, Warnakula P, et al. <strong>Harmonizing diversity: introducing a universal classification system and database concept for anatomical variations.</strong> <em>Anatomy</em>, 19(3), 101–108. 2026.</div>
+      <div class="pm-meta">Co-author</div>
+    </div>
+    <div class="pub-more-item">
+      <div>Jayakody CN, Jayapala D, Jayasinghe HK, Lankatilake KN. <strong>Prevalence and degree of burnout and associated factors from five major specialties in teaching hospitals of University of Colombo.</strong> <em>The Kandy Medical Journal</em>, 30(2), 49. 2021.</div>
+      <div class="pm-meta">2nd of 4 authors · originating from undergraduate thesis</div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FIG 2: ML / DATA ================= -->
+<section class="fig wrap" id="ml">
+  <div class="fig-label"><span class="n">Fig. 2</span> Applied Modeling</div>
+  <h2 class="fig-title">Data Science, EDA &amp; Applied ML</h2>
+  <p class="fig-caption">
+    Where the clinical/research instincts meet code: an original dataset I designed and published to benchmark
+    LLM ethical reasoning, a full EDA-to-model pipeline on a Kaggle competition, and interactive demos showing
+    the underlying methods at work.
+  </p>
+
+  <div class="panel" style="margin-bottom:28px;">
+    <div class="badge amber" style="margin-bottom:12px; display:inline-block;">Original dataset — designed, collected &amp; published by me</div>
+    <h3>Ethical Dilemmas Decision-Making Dataset</h3>
+    <p class="sub">
+      100 original ethical dilemmas across 10 real-world domains, each posed to three different AI models to
+      benchmark consistency in moral/ethical reasoning — published on Kaggle with full documentation and citation metadata.
+    </p>
+    <div class="metric-row">
+      <div class="metric"><div class="v">100</div><div class="l">Scenarios</div></div>
+      <div class="metric"><div class="v">10</div><div class="l">Domains</div></div>
+      <div class="metric"><div class="v">3</div><div class="l">Models compared</div></div>
+      <div class="metric"><div class="v">7.06</div><div class="l">Kaggle usability</div></div>
+    </div>
+    <p class="kaggle-desc">
+      I wrote all 100 scenarios myself — Medical, Law, Education, Examinations, Social, Cultural, Political,
+      Financial, Data Science, and Research, 10 each — with two fixed decision options per dilemma so every
+      model faces an identical choice structure. Each scenario was then run through Claude, Copilot, and
+      Gemini, recording each model's pick and, where offered, its proposed third-way resolution. The result
+      is a lightweight benchmark for inter-model agreement on ethics, not a ground-truth answer key —
+      10 scenarios do carry an implied baseline answer to sanity-check response quality.
+    </p>
+    <div class="stack-tags">
+      <span>Study design</span><span>Prompt engineering</span><span>Cross-model benchmarking</span><span>Data curation</span><span>xlsx / Kaggle</span>
+    </div>
+    <div class="demo-note">
+      Licensed <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a> ·
+      <a href="https://www.kaggle.com/datasets/deepanjayapala/ethical-dilemmas" target="_blank" rel="noopener">View the dataset on Kaggle →</a>
+    </div>
+  </div>
+
+  <div class="panel" style="margin-bottom:28px;">
+    <h3>What Actually Predicts the "Addicted" Label</h3>
+    <p class="sub">691,369 respondents · 13 behavioural &amp; demographic features · target: self-reported addiction status (70.9% positive class)</p>
+
+    <div class="eda-bars">
+      <div class="eda-bar-row">
+        <span class="eda-feat">Daily screen time</span>
+        <div class="eda-track"><div class="eda-fill" style="width:100%"></div></div>
+        <span class="eda-val">+0.61</span>
+      </div>
+      <div class="eda-bar-row">
+        <span class="eda-feat">Weekend screen time</span>
+        <div class="eda-track"><div class="eda-fill" style="width:96%"></div></div>
+        <span class="eda-val">+0.59</span>
+      </div>
+      <div class="eda-bar-row">
+        <span class="eda-feat">Social media hours</span>
+        <div class="eda-track"><div class="eda-fill" style="width:87%"></div></div>
+        <span class="eda-val">+0.53</span>
+      </div>
+      <div class="eda-bar-row">
+        <span class="eda-feat">Work/study hours</span>
+        <div class="eda-track"><div class="eda-fill" style="width:41%"></div></div>
+        <span class="eda-val">+0.25</span>
+      </div>
+      <div class="eda-bar-row">
+        <span class="eda-feat">Gaming hours</span>
+        <div class="eda-track"><div class="eda-fill" style="width:34%"></div></div>
+        <span class="eda-val">+0.21</span>
+      </div>
+      <div class="eda-bar-row">
+        <span class="eda-feat">App opens / day</span>
+        <div class="eda-track"><div class="eda-fill dim" style="width:10%"></div></div>
+        <span class="eda-val dim">+0.06</span>
+      </div>
+      <div class="eda-bar-row">
+        <span class="eda-feat">Sleep hours</span>
+        <div class="eda-track"><div class="eda-fill dim" style="width:7%"></div></div>
+        <span class="eda-val dim">+0.04</span>
+      </div>
+      <div class="eda-bar-row">
+        <span class="eda-feat">Notifications / day</span>
+        <div class="eda-track"><div class="eda-fill dim" style="width:2%"></div></div>
+        <span class="eda-val dim">−0.01</span>
+      </div>
+    </div>
+    <div class="demo-note" style="margin-top:2px;">Pearson correlation of each feature with the addiction label.</div>
+
+    <div class="cluster-stats" style="grid-template-columns:repeat(3,1fr); margin-top:26px;">
+      <div><div class="val">8.7 <span style="font-size:12px;color:var(--muted);">vs 5.0 hrs</span></div><div class="lbl">Daily screen time</div></div>
+      <div><div class="val">10.6 <span style="font-size:12px;color:var(--muted);">vs 6.8 hrs</span></div><div class="lbl">Weekend screen time</div></div>
+      <div><div class="val">2.9 <span style="font-size:12px;color:var(--muted);">vs 1.4 hrs</span></div><div class="lbl">Social media hrs</div></div>
+    </div>
+    <div class="demo-note">Average for addicted vs. non-addicted respondents, respectively.</div>
+
+    <div class="finding-callout">
+      <strong>Counterintuitive finding:</strong> self-reported stress level and academic/work impact barely moved the
+      addiction rate at all (≈71% "addicted" regardless of Low/Medium/High stress). Behavioural screen-time metrics
+      were far more predictive than subjective self-report — which shaped how I approached feature engineering.
+    </div>
+  </div>
+
+  <div class="panel kaggle-card">
+    <h3>The Model: Gradient-Boosted Ensemble</h3>
+    <p class="sub">Kaggle Playground Series S6E8 — binary classification, 5-fold stratified cross-validation</p>
+    <div class="metric-row">
+      <div class="metric"><div class="v">0.9603</div><div class="l">Blended AUC</div></div>
+      <div class="metric"><div class="v">691K</div><div class="l">Train rows</div></div>
+      <div class="metric"><div class="v">5-fold</div><div class="l">Stratified CV</div></div>
+    </div>
+    <p class="kaggle-desc">
+      <strong>How it works, in plain terms:</strong> three gradient-boosted decision tree models — LightGBM, XGBoost,
+      and CatBoost — were trained independently on engineered ratio and interaction features (screen time splits,
+      social-media-to-total-time ratios, and missingness flags). Each model learns slightly different patterns because
+      of how it builds its trees. Rather than trusting one model alone, I blended their out-of-fold predictions and
+      searched for the best mix — landing on 25% LightGBM + 75% XGBoost (CatBoost added no further lift once
+      blended). Ensembling this way smooths out any single model's blind spots.
+    </p>
+    <div class="stack-tags">
+      <span>LightGBM — 0.9598 AUC</span><span>XGBoost — 0.9602 AUC</span><span>CatBoost — 0.9525 AUC</span><span>Python</span><span>scikit-learn</span>
+    </div>
+    <div class="demo-note">
+      Dataset: Kaggle Playground Series S6E8, licensed
+      <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a>,
+      inspired by the <a href="https://www.kaggle.com/datasets/algozee/smartphone-addiction-prediction-data" target="_blank" rel="noopener">Smartphone Addiction Prediction Dataset</a>.
+    </div>
+  </div>
+
+  <!-- ===== Generic interactive clustering demo ===== -->
+  <div class="panel" style="margin-top:28px;">
+    <h3>Interactive Demo — How K-Means Clustering Works</h3>
+    <p class="sub">
+      A generic, synthetic dataset (not from any project above) — press run and watch the algorithm assign
+      points to clusters and move centroids until they settle. This is the same core mechanic used in the
+      real research demo below.
+    </p>
+    <div class="cluster-controls">
+      <button id="runDemo">Run k-means (k=3)</button>
+      <button id="resetDemo" class="secondary">Resample data</button>
+    </div>
+    <canvas id="demoCanvas"></canvas>
+    <div class="cluster-legend">
+      <span><i class="dot" style="background:#0B6E6E"></i>Cluster A</span>
+      <span><i class="dot" style="background:#C97A2B"></i>Cluster B</span>
+      <span><i class="dot" style="background:#B33A3A"></i>Cluster C</span>
+    </div>
+    <div class="demo-note">
+      Each click of "Run" re-assigns every point to its nearest centroid, then moves each centroid to the
+      average position of its assigned points — repeating until the clusters stabilize. That's the entire
+      algorithm.
+    </div>
+  </div>
+
+  <!-- ===== Burnout severity clustering — from own research ===== -->
+  <div class="panel" style="margin-top:28px;">
+    <div class="badge amber" style="margin-bottom:12px; display:inline-block;">From my own research — manuscript under review</div>
+    <h3>Identifying Burnout Severity Clusters</h3>
+    <p class="sub">
+      An interactive walkthrough of the clustering approach from one of my manuscripts currently under review:
+      using K-means to split a physician cohort into low / moderate / high burnout groups from Oldenburg Burnout
+      Inventory (OLBI) exhaustion and disengagement scores, then deriving cutoff thresholds between clusters.
+    </p>
+
+    <div class="burnout-grid">
+      <div class="burnout-col">
+        <div class="mini-label">Step 1 — Elbow method</div>
+        <svg id="elbowChart" viewBox="0 0 320 180" class="elbow-svg"></svg>
+        <div class="demo-note">WCSS drops sharply then flattens around <strong>k = 3</strong> — confirmed with silhouette statistics.</div>
+      </div>
+      <div class="burnout-col">
+        <div class="mini-label">Step 2 — K-means clusters (k=3)</div>
+        <svg id="burnoutScatter" viewBox="0 0 320 220" class="elbow-svg"></svg>
+        <div class="cluster-legend" style="margin-top:10px;">
+          <span><i class="dot" style="background:#B33A3A"></i>High burnout</span>
+          <span><i class="dot" style="background:#0B6E6E"></i>Moderate</span>
+          <span><i class="dot" style="background:#5B9E6E"></i>Low burnout</span>
+        </div>
+        <div class="demo-note">Point size ∝ total OLBI score. Dashed lines mark the derived cutoffs.</div>
+      </div>
+    </div>
+
+    <div class="cutoff-table">
+      <div class="cutoff-row cutoff-head">
+        <span>Dimension</span><span>Low–Moderate</span><span>Moderate–High</span>
+      </div>
+      <div class="cutoff-row"><span>Exhaustion</span><span>14.48</span><span>20.72</span></div>
+      <div class="cutoff-row"><span>Disengagement</span><span>14.69</span><span>19.74</span></div>
+      <div class="cutoff-row"><span>Total OLBI score</span><span>29.17</span><span>40.46</span></div>
+    </div>
+
+    <div class="finding-callout" style="margin-top:22px;">
+      <strong>What's next:</strong> extending this with association rule mining across the burnout dimensions —
+      to see which combinations of exhaustion, disengagement, and contextual factors co-occur most often within
+      the high-burnout cluster. Still in progress.
+    </div>
+  </div>
+</section>
+
+<!-- ================= FIG 3: GAMES & SOFTWARE ================= -->
+<section class="fig wrap" id="games">
+  <div class="fig-label"><span class="n">Fig. 3</span> Built for Teaching</div>
+  <h2 class="fig-title">Educational Software &amp; Games</h2>
+  <p class="fig-caption">
+    Preliminary interactive tools built in R Shiny for medical student engagement — anatomy quizzes and
+    reasoning games, live at shinyapps.io. Early-stage, but shipped and playable.
+  </p>
+
+  <div class="game-grid">
+    <a class="game-card" href="https://deepan.shinyapps.io/jury_game/" target="_blank" rel="noopener">
+      <div class="g-title">Court of Justice</div>
+      <div class="g-desc">A courtroom-style reasoning game framing clinical/anatomical decisions as case arguments.</div>
+      <div class="g-link">Play →</div>
+    </a>
+    <a class="game-card" href="https://deepan.shinyapps.io/Mystery_2/" target="_blank" rel="noopener">
+      <div class="g-title">Mystery_2</div>
+      <div class="g-desc">A mystery-style diagnostic reasoning game for working through clues toward an answer.</div>
+      <div class="g-link">Play →</div>
+    </a>
+    <a class="game-card" href="https://deepan.shinyapps.io/rapid_fire_game_Foramen_in_the_skull/" target="_blank" rel="noopener">
+      <div class="g-title">Foramen in the Skull</div>
+      <div class="g-desc">Rapid-fire quiz drilling recognition of skull foramina and what passes through each.</div>
+      <div class="g-link">Play →</div>
+    </a>
+    <a class="game-card" href="https://deepan.shinyapps.io/rapid_fire_game/" target="_blank" rel="noopener">
+      <div class="g-title">Rapid Fire Game</div>
+      <div class="g-desc">General-purpose rapid-fire anatomy quiz format for quick recall practice.</div>
+      <div class="g-link">Play →</div>
+    </a>
+    <a class="game-card" href="https://deepan.shinyapps.io/Game_Resp/" target="_blank" rel="noopener">
+      <div class="g-title">Resp Game</div>
+      <div class="g-desc">Interactive game built around respiratory system anatomy and physiology.</div>
+      <div class="g-link">Play →</div>
+    </a>
+    <a class="game-card" href="https://pamodaj.shinyapps.io/Game_xray/" target="_blank" rel="noopener">
+      <div class="g-title">X-Ray Game (English)</div>
+      <div class="g-desc">Practice game for radiograph interpretation, built with a co-developer.</div>
+      <div class="g-link">Play →</div>
+    </a>
+  </div>
+  <div class="demo-note" style="margin-top:22px;">
+    Built with R / Shiny, hosted on shinyapps.io. These are early, ungraded prototypes rather than
+    finished products — feedback welcome.
+  </div>
+</section>
+
+<!-- ================= FIG 3: BACKGROUND ================= -->
+<section class="fig wrap" id="background">
+  <div class="fig-label"><span class="n">Fig. 4</span> Career &amp; Education</div>
+  <h2 class="fig-title">Background</h2>
+  <p class="fig-caption">
+    From medical school in Colombo to emergency medicine wards to a lectureship at a newly established
+    medical school — currently exploring PhD opportunities in neuroscience.
+  </p>
+
+  <div class="timeline">
+    <div class="t-item">
+      <div class="t-date">2024 — Present</div>
+      <div class="t-role">Lecturer, Department of Anatomy</div>
+      <div class="t-org">Faculty of Medicine, University of Moratuwa, Sri Lanka</div>
+    </div>
+    <div class="t-item">
+      <div class="t-date">Oct 2025 — Apr 2026</div>
+      <div class="t-role">Research Internship, Neuroscience &amp; Cell Culture</div>
+      <div class="t-org">Center for Neurophysiology Research, Faculty of Medicine, University of Colombo</div>
+    </div>
+    <div class="t-item">
+      <div class="t-date">2021 — 2024</div>
+      <div class="t-role">Medical Officer</div>
+      <div class="t-org">Ministry of Health — Emergency Medicine, Neurosurgical ICU, Internal Medicine, General Surgery</div>
+    </div>
+    <div class="t-item">
+      <div class="t-date">2021</div>
+      <div class="t-role">Demonstrator, Department of Anatomy</div>
+      <div class="t-org">Faculty of Medicine, University of Ruhuna</div>
+    </div>
+    <div class="t-item">
+      <div class="t-date">2019</div>
+      <div class="t-role">Elective — Point of Care Ultrasound (POCUS)</div>
+      <div class="t-org">District General Hospital, Nuwara Eliya</div>
+    </div>
+    <div class="t-item">
+      <div class="t-date">2014 — 2021</div>
+      <div class="t-role">MBBS (Honours), 2:1</div>
+      <div class="t-org">Faculty of Medicine, University of Colombo — 1st Class Honours in 4 of 5 streams; Thesis on burnout prevalence across five major specialties</div>
+    </div>
+    <div class="t-item">
+      <div class="t-date">Jun — Dec 2014</div>
+      <div class="t-role">Research Assistant / Technical Officer</div>
+      <div class="t-org">Filariasis Research and Service Unit, Department of Parasitology, University of Ruhuna — before entering medical school</div>
+    </div>
+  </div>
+
+  <div class="achieve-grid">
+    <div class="achieve-item"><div class="a-title">Emergent Anatomist Award</div><div class="a-sub">IFAA 2026</div></div>
+    <div class="achieve-item"><div class="a-title">Outstanding Award in Research Excellence</div><div class="a-sub">University of Moratuwa, 2024</div></div>
+    <div class="achieve-item"><div class="a-title">1st Class Honours — 4 Streams</div><div class="a-sub">Basic Science · Applied Science · Behavioural Science · Community Medicine</div></div>
+    <div class="achieve-item"><div class="a-title">Dean's List, Top 10%</div><div class="a-sub">Faculty of Medicine, Colombo — 2018 &amp; 2019</div></div>
+    <div class="achieve-item"><div class="a-title">GBD Collaborator</div><div class="a-sub">Institute for Health Metrics &amp; Evaluation — since 2024</div></div>
+    <div class="achieve-item"><div class="a-title">MRCEM Part A &amp; B</div><div class="a-sub">Royal College of Emergency Medicine</div></div>
+    <div class="achieve-item"><div class="a-title">IELTS Academic — Band 8 (C1)</div><div class="a-sub">Dec 2025</div></div>
+  </div>
+
+  <div class="skills-row">
+    <h4>Technical &amp; Research Skills</h4>
+    <div class="skill-tags">
+      <span>Python</span><span>R (statistical analysis)</span><span>MATLAB</span>
+      <span>LightGBM / XGBoost / CatBoost</span><span>Systematic Review &amp; Meta-Analysis</span>
+      <span>GBD Methodology (IHME certified)</span><span>EEG Interpretation</span>
+      <span>Peer Review (Elsevier certified)</span>
+    </div>
+  </div>
+</section>
+
+<footer class="wrap" id="contact">
+  <div class="f-title">Let's talk research, models, or PhD opportunities.</div>
+  <p class="f-sub">Currently exploring PhD positions in neuroscience — advanced neuroimaging, computational
+    modeling, drug development &amp; analysis, and in-vitro disease modeling.</p>
+  <div class="footer-links">
+    <a href="mailto:deepanj@uom.lk">deepanj@uom.lk</a>
+    <a href="https://orcid.org/0000-0003-3960-6029" target="_blank" rel="noopener">ORCID ↗</a>
+    <a href="https://scholar.google.com/citations?user=s505AA8AAAAJ&hl=en&authuser=2" target="_blank" rel="noopener">Google Scholar ↗</a>
+    <a href="https://www.linkedin.com/in/deepanjayapala" target="_blank" rel="noopener">LinkedIn ↗</a>
+  </div>
+  <div class="f-bottom">
+    <span>Dr. Deepan Jayapala — Colombo, Sri Lanka</span>
+    <span>Built with care, one Fig. at a time.</span>
+  </div>
+</footer>
+
+<script>
+// ---------- Waveform hero animation ----------
+(function(){
+  const wfMain = document.getElementById('wfMain');
+  const wfDim = document.getElementById('wfDim');
+  function eegToLine(points, t){
+    // t in [0,1]: 0 = jagged EEG-like squiggle, 1 = smooth ascending trend
+    let d = 'M 0 ' + (50) + ' ';
+    for(let i=0;i<points;i++){
+      const x = (i/(points-1))*1000;
+      const eeg = 50 + Math.sin(i*1.3)*22 + (Math.random()-0.5)*26*Math.sin(i*0.7);
+      const trend = 78 - (x/1000)*56 + Math.sin(i*0.5)*4;
+      const y = eeg*(1-t) + trend*t;
+      d += 'L ' + x.toFixed(1) + ' ' + y.toFixed(1) + ' ';
+    }
+    return d;
+  }
+  wfDim.setAttribute('d', eegToLine(60, 0));
+  let frame = 0;
+  function animate(){
+    frame += 0.006;
+    const t = Math.min(frame, 1);
+    wfMain.setAttribute('d', eegToLine(60, t));
+    if(t < 1){ requestAnimationFrame(animate); }
+  }
+  requestAnimationFrame(animate);
+})();
+
+// ---------- Generic interactive k-means demo ----------
+(function(){
+  const canvas = document.getElementById('demoCanvas');
+  const ctx = canvas.getContext('2d');
+  let points = [];
+  let centroids = [];
+  const COLORS = ['#0B6E6E', '#C97A2B', '#B33A3A'];
+
+  function resize(){
+    const rect = canvas.getBoundingClientRect();
+    canvas.width = rect.width * devicePixelRatio;
+    canvas.height = rect.height * devicePixelRatio;
+    ctx.setTransform(devicePixelRatio,0,0,devicePixelRatio,0,0);
+  }
+
+  function genPoints(){
+    points = [];
+    const groups = [
+      {cx:0.20, cy:0.25, n:26},
+      {cx:0.50, cy:0.78, n:30},
+      {cx:0.80, cy:0.25, n:24}
+    ];
+    groups.forEach(g=>{
+      for(let i=0;i<g.n;i++){
+        points.push({
+          x: Math.min(0.96, Math.max(0.04, g.cx + (Math.random()-0.5)*0.24)),
+          y: Math.min(0.96, Math.max(0.04, g.cy + (Math.random()-0.5)*0.24)),
+          cluster: -1
+        });
+      }
+    });
+  }
+
+  function draw(showClusters){
+    const w = canvas.getBoundingClientRect().width;
+    const h = canvas.getBoundingClientRect().height;
+    ctx.clearRect(0,0,w,h);
+    const pad = 18;
+    points.forEach(p=>{
+      const px = pad + p.x*(w-2*pad);
+      const py = pad + (1-p.y)*(h-2*pad);
+      ctx.beginPath();
+      ctx.arc(px, py, 4, 0, Math.PI*2);
+      ctx.fillStyle = showClusters && p.cluster>=0 ? COLORS[p.cluster] : '#9AA69F';
+      ctx.globalAlpha = showClusters && p.cluster>=0 ? 0.85 : 0.55;
+      ctx.fill();
+    });
+    ctx.globalAlpha = 1;
+    if(showClusters){
+      centroids.forEach((c,i)=>{
+        const px = pad + c.x*(w-2*pad);
+        const py = pad + (1-c.y)*(h-2*pad);
+        ctx.beginPath();
+        ctx.arc(px, py, 7, 0, Math.PI*2);
+        ctx.strokeStyle = COLORS[i];
+        ctx.lineWidth = 2;
+        ctx.stroke();
+      });
+    }
+  }
+
+  function kmeansStep(){
+    points.forEach(p=>{
+      let best=-1, bestD=Infinity;
+      centroids.forEach((c,i)=>{
+        const d = (p.x-c.x)**2 + (p.y-c.y)**2;
+        if(d<bestD){bestD=d; best=i;}
+      });
+      p.cluster = best;
+    });
+    centroids.forEach((c,i)=>{
+      const members = points.filter(p=>p.cluster===i);
+      if(members.length){
+        c.x = members.reduce((s,p)=>s+p.x,0)/members.length;
+        c.y = members.reduce((s,p)=>s+p.y,0)/members.length;
+      } else {
+        // empty cluster: reseed at a random existing point so it doesn't sit stuck and unused
+        const rp = points[Math.floor(Math.random()*points.length)];
+        c.x = rp.x; c.y = rp.y;
+      }
+    });
+  }
+
+  let running = false;
+  function runClustering(){
+    if(running) return;
+    running = true;
+    centroids = [
+      {x:Math.random(), y:Math.random()},
+      {x:Math.random(), y:Math.random()},
+      {x:Math.random(), y:Math.random()}
+    ];
+    let iter = 0;
+    const maxIter = 8;
+    function step(){
+      kmeansStep();
+      draw(true);
+      iter++;
+      if(iter < maxIter){ setTimeout(step, 220); }
+      else { running = false; }
+    }
+    step();
+  }
+
+  document.getElementById('runDemo').addEventListener('click', runClustering);
+  document.getElementById('resetDemo').addEventListener('click', function(){
+    genPoints();
+    draw(false);
+  });
+
+  window.addEventListener('resize', ()=>{ resize(); draw(false); });
+  resize();
+  genPoints();
+  draw(false);
+})();
+
+// ---------- Elbow method chart ----------
+(function(){
+  const svg = document.getElementById('elbowChart');
+  const ns = 'http://www.w3.org/2000/svg';
+  const pad = {l:34, r:16, t:16, b:28};
+  const w = 320, h = 180;
+  const plotW = w - pad.l - pad.r, plotH = h - pad.t - pad.b;
+  // illustrative WCSS values shaped like a real elbow, flattening at k=3
+  const ks = [1,2,3,4,5,6];
+  const wcss = [100, 52, 27, 21, 17, 14];
+  const maxW = 100;
+  function X(k){ return pad.l + ((k-1)/(ks.length-1))*plotW; }
+  function Y(v){ return pad.t + (1 - v/maxW)*plotH; }
+
+  // axes
+  const axisX = document.createElementNS(ns,'line');
+  axisX.setAttribute('x1', pad.l); axisX.setAttribute('y1', h-pad.b);
+  axisX.setAttribute('x2', w-pad.r); axisX.setAttribute('y2', h-pad.b);
+  axisX.setAttribute('stroke', '#CBD2CB'); svg.appendChild(axisX);
+  const axisY = document.createElementNS(ns,'line');
+  axisY.setAttribute('x1', pad.l); axisY.setAttribute('y1', pad.t);
+  axisY.setAttribute('x2', pad.l); axisY.setAttribute('y2', h-pad.b);
+  axisY.setAttribute('stroke', '#CBD2CB'); svg.appendChild(axisY);
+
+  let d = '';
+  ks.forEach((k,i)=>{ d += (i===0?'M':'L') + X(k) + ' ' + Y(wcss[i]) + ' '; });
+  const path = document.createElementNS(ns,'path');
+  path.setAttribute('d', d); path.setAttribute('fill','none');
+  path.setAttribute('stroke','#0B6E6E'); path.setAttribute('stroke-width','2');
+  svg.appendChild(path);
+
+  ks.forEach((k,i)=>{
+    const cx = X(k), cy = Y(wcss[i]);
+    const c = document.createElementNS(ns,'circle');
+    c.setAttribute('cx',cx); c.setAttribute('cy',cy); c.setAttribute('r', k===3?5:3.2);
+    c.setAttribute('fill', k===3 ? '#C97A2B' : '#0B6E6E');
+    svg.appendChild(c);
+    const t = document.createElementNS(ns,'text');
+    t.setAttribute('x',cx); t.setAttribute('y', h-pad.b+16);
+    t.setAttribute('text-anchor','middle'); t.setAttribute('font-size','9');
+    t.setAttribute('font-family','JetBrains Mono, monospace'); t.setAttribute('fill','#5B6560');
+    t.textContent = 'k='+k;
+    svg.appendChild(t);
+  });
+  const label = document.createElementNS(ns,'text');
+  label.setAttribute('x', X(3)); label.setAttribute('y', Y(wcss[2])-12);
+  label.setAttribute('text-anchor','middle'); label.setAttribute('font-size','9.5');
+  label.setAttribute('font-family','JetBrains Mono, monospace'); label.setAttribute('fill','#C97A2B');
+  label.textContent = 'elbow';
+  svg.appendChild(label);
+})();
+
+// ---------- Burnout K-means scatter ----------
+(function(){
+  const svg = document.getElementById('burnoutScatter');
+  const ns = 'http://www.w3.org/2000/svg';
+  const pad = {l:34, r:14, t:14, b:28};
+  const w = 320, h = 220;
+  const plotW = w - pad.l - pad.r, plotH = h - pad.t - pad.b;
+  const maxScore = 30;
+  function X(v){ return pad.l + (v/maxScore)*plotW; }
+  function Y(v){ return pad.t + (1 - v/maxScore)*plotH; }
+
+  const exCuts = [14.48, 20.72];
+  const disCuts = [14.69, 19.74];
+
+  // axes
+  ['x','y'].forEach(axis=>{
+    const line = document.createElementNS(ns,'line');
+    if(axis==='x'){
+      line.setAttribute('x1',pad.l); line.setAttribute('y1',h-pad.b);
+      line.setAttribute('x2',w-pad.r); line.setAttribute('y2',h-pad.b);
+    } else {
+      line.setAttribute('x1',pad.l); line.setAttribute('y1',pad.t);
+      line.setAttribute('x2',pad.l); line.setAttribute('y2',h-pad.b);
+    }
+    line.setAttribute('stroke','#CBD2CB');
+    svg.appendChild(line);
+  });
+
+  // cutoff dashed lines
+  exCuts.forEach(c=>{
+    const l = document.createElementNS(ns,'line');
+    l.setAttribute('x1', X(c)); l.setAttribute('y1', pad.t);
+    l.setAttribute('x2', X(c)); l.setAttribute('y2', h-pad.b);
+    l.setAttribute('stroke','#5B6560'); l.setAttribute('stroke-dasharray','3,3'); l.setAttribute('stroke-width','1');
+    svg.appendChild(l);
+  });
+  disCuts.forEach(c=>{
+    const l = document.createElementNS(ns,'line');
+    l.setAttribute('x1', pad.l); l.setAttribute('y1', Y(c));
+    l.setAttribute('x2', w-pad.r); l.setAttribute('y2', Y(c));
+    l.setAttribute('stroke','#5B6560'); l.setAttribute('stroke-dasharray','3,3'); l.setAttribute('stroke-width','1');
+    svg.appendChild(l);
+  });
+
+  // simulated points respecting reported cutoffs (illustrative, not raw manuscript data)
+  function rand(a,b){ return a + Math.random()*(b-a); }
+  const pts = [];
+  for(let i=0;i<30;i++) pts.push({ex:rand(1,13.5), dis:rand(1,13.8), c:'low'});
+  for(let i=0;i<32;i++) pts.push({ex:rand(15,20), dis:rand(15,19), c:'mod'});
+  for(let i=0;i<28;i++) pts.push({ex:rand(21,29.5), dis:rand(20,29.5), c:'high'});
+  const colorMap = {low:'#5B9E6E', mod:'#0B6E6E', high:'#B33A3A'};
+
+  pts.forEach(p=>{
+    const total = p.ex + p.dis;
+    const r = 2.4 + (total/60)*4.5;
+    const circle = document.createElementNS(ns,'circle');
+    circle.setAttribute('cx', X(p.ex)); circle.setAttribute('cy', Y(p.dis));
+    circle.setAttribute('r', r.toFixed(1));
+    circle.setAttribute('fill', colorMap[p.c]);
+    circle.setAttribute('fill-opacity','0.75');
+    svg.appendChild(circle);
+  });
+
+  const xl = document.createElementNS(ns,'text');
+  xl.setAttribute('x', pad.l + plotW/2); xl.setAttribute('y', h-6);
+  xl.setAttribute('text-anchor','middle'); xl.setAttribute('font-size','9');
+  xl.setAttribute('font-family','JetBrains Mono, monospace'); xl.setAttribute('fill','#5B6560');
+  xl.textContent = 'Exhaustion score →';
+  svg.appendChild(xl);
+
+  const yl = document.createElementNS(ns,'text');
+  yl.setAttribute('x', -(pad.t + plotH/2)); yl.setAttribute('y', 11);
+  yl.setAttribute('transform','rotate(-90)');
+  yl.setAttribute('text-anchor','middle'); yl.setAttribute('font-size','9');
+  yl.setAttribute('font-family','JetBrains Mono, monospace'); yl.setAttribute('fill','#5B6560');
+  yl.textContent = 'Disengagement →';
+  svg.appendChild(yl);
+})();
+
+// ---------- Publication toggle ----------
+document.getElementById('pubToggle').addEventListener('click', function(){
+  const more = document.getElementById('pubMore');
+  const open = more.classList.toggle('open');
+  this.textContent = open ? '– Hide additional publications' : '+ Show 5 more publications (Q2, systematic review protocols, abstracts & conference work)';
+});
+
+</script>
+
+</body>
+</html>
