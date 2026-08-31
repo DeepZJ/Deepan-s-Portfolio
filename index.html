@@ -320,6 +320,21 @@
   }
   .kaggle-desc{font-size:13.5px; color:var(--muted); margin-top:14px; line-height:1.65;}
 
+  /* app links (live demo / github) */
+  .app-links{display:flex; flex-wrap:wrap; gap:10px; margin-top:16px;}
+  .app-links a{
+    font-family:var(--mono); font-size:12px;
+    border:1px solid var(--line); padding:9px 16px; border-radius:2px;
+    text-decoration:none; color:var(--ink);
+    transition:all .15s ease;
+    display:inline-flex; align-items:center; gap:7px;
+  }
+  .app-links a:hover{border-color:var(--accent); color:var(--accent);}
+  .app-links a.primary{background:var(--accent); color:#fff; border-color:var(--accent);}
+  .app-links a.primary:hover{opacity:0.88; color:#fff;}
+  .live-dot{width:7px; height:7px; border-radius:50%; background:#5B9E6E; display:inline-block; animation:livePulse 2s ease-in-out infinite;}
+  @keyframes livePulse{0%,100%{opacity:1;} 50%{opacity:0.4;}}
+
   /* ---------- BACKGROUND / TIMELINE ---------- */
   .timeline{position:relative; padding-left:26px; border-left:1.5px solid var(--line);}
   .t-item{position:relative; padding-bottom:32px;}
@@ -426,7 +441,7 @@
     <a class="preview-card" href="#ml">
       <svg class="pc-icon" viewBox="0 0 40 40"><g class="pc-scatter"><circle cx="11" cy="26" r="2" fill="currentColor"/><circle cx="16" cy="21" r="2" fill="currentColor"/><circle cx="14" cy="14" r="2" fill="var(--amber)"/><circle cx="22" cy="17" r="2" fill="currentColor"/><circle cx="26" cy="11" r="2" fill="currentColor"/><circle cx="29" cy="24" r="2" fill="currentColor"/><circle cx="24" cy="28" r="2" fill="var(--amber)"/><path class="pc-line" d="M11 26 L16 21 L14 14 M22 17 L26 11 M29 24 L24 28" stroke="currentColor" stroke-width="1" fill="none" opacity="0.35"/></g></svg>
       <div class="pc-title">Fig.2 — Modeling</div>
-      <div class="pc-sub">Original dataset, EDA, ML &amp; live demos</div>
+      <div class="pc-sub">Spam detector, original dataset &amp; live demos</div>
     </a>
     <a class="preview-card" href="#games">
       <svg class="pc-icon" viewBox="0 0 40 40"><g class="pc-game"><rect x="8" y="15" width="24" height="14" rx="4" fill="none" stroke="currentColor" stroke-width="1.6"/><line x1="14" y1="19" x2="14" y2="25" stroke="currentColor" stroke-width="1.6"/><line x1="11" y1="22" x2="17" y2="22" stroke="currentColor" stroke-width="1.6"/><circle class="pc-pulse" cx="26" cy="21" r="1.6" fill="var(--amber)"/><circle cx="26" cy="25" r="1.6" fill="currentColor"/></g></svg>
@@ -518,10 +533,53 @@
   <div class="fig-label"><span class="n">Fig. 2</span> Applied Modeling</div>
   <h2 class="fig-title">Data Science, EDA &amp; Applied ML</h2>
   <p class="fig-caption">
-    Where the clinical/research instincts meet code: an original dataset I designed and published to benchmark
-    LLM ethical reasoning, a full EDA-to-model pipeline on a Kaggle competition, and interactive demos showing
-    the underlying methods at work.
+    Where the clinical/research instincts meet code: a deployed two-layer fraud detector with a live demo,
+    an original dataset I designed and published to benchmark LLM ethical reasoning, a full EDA-to-model
+    pipeline on a Kaggle competition, and interactive demos showing the underlying methods at work.
   </p>
+
+  <div class="panel kaggle-card" style="margin-bottom:28px; border-left:3px solid var(--accent);">
+    <div class="badge amber" style="margin-bottom:12px; display:inline-block;">Live app · deployed &amp; publicly usable</div>
+    <h3>Email Fraud Risk Screening — Two-Layer ML Pipeline</h3>
+    <p class="sub">
+      Word + character TF-IDF &amp; Linear SVM (Layer 1) feeding a gradient-boosted screening model
+      (Layer 2) — built after discovering the base SVM, though excellent on its Enron training
+      distribution, didn't generalise to real academic-domain phishing.
+    </p>
+
+    <div class="metric-row">
+      <div class="metric"><div class="v">99.67%</div><div class="l">Layer 1 accuracy (internal)</div></div>
+      <div class="metric"><div class="v">93.3%</div><div class="l">Recall (external, n=60)</div></div>
+      <div class="metric"><div class="v">0.75</div><div class="l">External F1</div></div>
+    </div>
+
+    <p class="kaggle-desc">
+      <strong>How it works, in plain terms:</strong> Subject + body text is transformed into a 450,000-dimension
+      word + character TF-IDF representation, scored by a Linear SVM. Because that SVM was trained on Enron
+      corporate email, it under-recognised fraud patterns typical of academic correspondence (predatory
+      journals, fake conference invitations) — so I built and validated a second-layer gradient-boosted model
+      that reinterprets the SVM's own score, tested on an independently collected, hand-labelled academic-domain
+      set. When an initial 5-tier risk system failed a monotonicity check on that validation set, I replaced it
+      with quantile-derived boundaries — split into equal-sized groups by rank and empirically confirmed to
+      produce a monotonically increasing spam rate (30% → 55% → 65%) — rather than shipping thresholds that
+      looked precise but weren't backed by evidence.
+    </p>
+
+    <div class="stack-tags">
+      <span>scikit-learn</span><span>TF-IDF (word + char)</span><span>Linear SVM</span>
+      <span>HistGradientBoosting</span><span>Streamlit</span><span>joblib</span><span>Python</span>
+    </div>
+
+    <div class="app-links">
+      <a class="primary" href="https://spamemaildetector-dpj.streamlit.app/" target="_blank" rel="noopener"><span class="live-dot"></span> Live demo →</a>
+      <a href="https://github.com/DeepZJ/Spam_Email_detector" target="_blank" rel="noopener">GitHub repo (code + notebook) →</a>
+    </div>
+
+    <div class="demo-note">
+      Research/portfolio prototype — text-only screening signal, not a standalone security system.
+      Full methodology, validation process, and honestly-reported limitations documented in the repo's README.
+    </div>
+  </div>
 
   <div class="panel" style="margin-bottom:28px;">
     <div class="badge amber" style="margin-bottom:12px; display:inline-block;">Original dataset — designed, collected &amp; published by me</div>
@@ -819,7 +877,8 @@
     <h4>Technical &amp; Research Skills</h4>
     <div class="skill-tags">
       <span>Python</span><span>R (statistical analysis)</span><span>MATLAB</span>
-      <span>LightGBM / XGBoost / CatBoost</span><span>Systematic Review &amp; Meta-Analysis</span>
+      <span>LightGBM / XGBoost / CatBoost</span><span>scikit-learn</span><span>Streamlit</span>
+      <span>Systematic Review &amp; Meta-Analysis</span>
       <span>GBD Methodology (IHME certified)</span><span>EEG Interpretation</span>
       <span>Peer Review (Elsevier certified)</span>
     </div>
